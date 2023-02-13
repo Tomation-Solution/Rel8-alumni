@@ -8,7 +8,7 @@ from rest_framework.decorators import action
 from ..models import DeactivatingDue, DeactivatingDue_User, Due_User
 from account.models import user as  user_related_models
 from account.serializers import user as user_serializer
-# from 
+from django.shortcuts import get_object_or_404
 
 class AdminManageDue(viewsets.ViewSet):
     permission_classes = [permissions.IsAuthenticated,custom_permissions.IsAdminOrSuperAdmin,
@@ -112,13 +112,15 @@ class MemberDues(viewsets.ViewSet):
         return custom_response.Success_response(msg='Success',
                         data=my_dues)
                         
-    @action(detail=False,methods=['get'])
+    @action(detail=False,methods=['get'], permission_classes =[permissions.IsAuthenticated,])
     def get_due_detail(self,request,format=None):
-        dues = Due_User.objects.all().filter(user=request.user)
-        deactivating_due = DeactivatingDue_User.objects.all()
-        total_outstanding= dues.filter(is_paid=False).count() +deactivating_due.filter(is_paid=False).count()
-        total_paid= dues.filter(is_paid=True).count() +deactivating_due.filter(is_paid=True).count()
-
+        "get the data for all if it admin or super_admin"
+        if request.user.user_type == 'admin' or request.user.user_type == 'super_admin':
+            dues = Due_User.objects.all().filter()
+        else:
+            dues = Due_User.objects.all().filter(user=request.user)
+        total_outstanding= dues.filter(is_paid=False).count() 
+        total_paid= dues.filter(is_paid=True).count()
         data = {
             'outstanding':total_outstanding,
             'total_paid':total_paid
