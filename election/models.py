@@ -30,27 +30,27 @@ Postion
 Ballot Box 
 """
 
-class BallotBox(models.Model):
-    name = models.CharField(max_length=300,default="Election 1")
-    role_name = models.CharField(max_length=300 ,default="Role OF What?")
-    members_that_has_cast_thier_vote = models.ManyToManyField(user_models.Memeber,)
-    role_detail = models.TextField(default="")
-    is_close = models.BooleanField(default=False)
+# class BallotBox(models.Model):
+#     name = models.CharField(max_length=300,default="Election 1")
+#     role_name = models.CharField(max_length=300 ,default="Role OF What?")
+#     members_that_has_cast_thier_vote = models.ManyToManyField(user_models.Memeber,)
+#     role_detail = models.TextField(default="")
+#     is_close = models.BooleanField(default=False)
 
-    election_startDate=models.DateField(null=True,default=None)
-    election_endDate=models.DateField(null=True,default=None)
+#     election_startDate=models.DateField(null=True,default=None)
+#     election_endDate=models.DateField(null=True,default=None)
     
-    election_endTime=models.TimeField(null=True,default=None)
-    election_startTIme=models.TimeField(null=True,default=None)
-class Contestant(models.Model): 
-    member =  models.ForeignKey(user_models.Memeber,on_delete=models.CASCADE,)
-    ballotbox  = models.ForeignKey(BallotBox,on_delete=models.CASCADE)
-    amount_vote = models.IntegerField()
-    youtubeVidLink = models.TextField()#this works as manifesto
-    aspirantBio = models.JSONField(default=None,null=True)#this works as m anifesto
-    upload_manifesto_docs = models.FileField(null=True,default=None)
-    upload_manifesto_image = models.FileField(null=True,default=None)
+#     election_endTime=models.TimeField(null=True,default=None)
+#     election_startTIme=models.TimeField(null=True,default=None)
+# class Contestant(models.Model): 
+#     member =  models.ForeignKey(user_models.Memeber,on_delete=models.CASCADE,)
+#     ballotbox  = models.ForeignKey(BallotBox,on_delete=models.CASCADE)
+#     amount_vote = models.IntegerField()
+#     youtubeVidLink = models.TextField()#this works as manifesto
+#     aspirantBio = models.JSONField(default=None,null=True)#this works as m anifesto
+#     upload_manifesto_docs = models.FileField(null=True,default=None)
+#     upload_manifesto_image = models.FileField(null=True,default=None)
 
 
-    def __str__(self): return f'Member {self.member.id} conteting  for "{self.ballotbox.name}"'
+#     def __str__(self): return f'Member {self.member.id} conteting  for "{self.ballotbox.name}"'
 

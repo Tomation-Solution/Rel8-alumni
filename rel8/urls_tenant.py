@@ -26,7 +26,7 @@ urlpatterns = [
     path('tenant/news/',include("news.urls")),
     path('tenant/publication/',include("publication.urls")),
     path('tenant/extras/',include('extras.urls')),
-    path('tenant/election/',include('election.urls')),
+    # path('tenant/election/',include('election.urls')),
     path('tenant/subscribe/',include('subscription.urls')),
     path("tenant/minute/",include('minute.urls')),
     path("tenant/faq/",include('faq.urls')),
