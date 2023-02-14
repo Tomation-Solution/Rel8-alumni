@@ -12,5 +12,7 @@ router.register("AdminRelatedViews",user_view.AdminRelatedViews,basename='AdminR
 router.register('memberlist-info',user_view.MemberListInfo,basename="memberlist-info")
 
 urlpatterns = [
-    path('profile/',user_view.profile,name='profile')
+    path('profile/',user_view.profile,name='profile'),
+    path('council_members/<int:pk>/',user_view.council_members,name='council_members')
+
 ] +router.urls

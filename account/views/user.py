@@ -19,6 +19,8 @@ from event import models
 from rest_framework.parsers import FormParser
 from django.db.models import F
 from utils.custom_parsers import NestedMultipartParser
+from django.shortcuts import get_object_or_404
+
 # from
 
 class RegisterUserToChapter(viewsets.ViewSet):
@@ -230,6 +232,14 @@ def profile(request,format=False):
     data['is_financial']=memeber.is_financial
     data['more_info'] =member_info
     return custom_response.Success_response(msg="Success",data=[data],status_code=status.HTTP_200_OK)
+
+@api_view(['POST',])
+@permission_classes([permissions.IsAuthenticated,])
+def council_members(request,*args,**kwargs):
+    council  = get_object_or_404(user_models.ExcoRole,id=kwargs['pk'])
+    council_members = council.member.all()
+    serialized = user.MemberSerializer(council_members,many=True)
+    return custom_response.Success_response(msg='successful',data=serialized.data,status_code=status.HTTP_200_OK)
 
 # @api_view(['POST',])
 # @permission_classes([permissions.IsAuthenticated,custom_permissions.IsMember])
